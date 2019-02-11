@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "506854096337",
+    "firebase_url": "https://future-bank-43a69.firebaseio.com",
+    "project_id": "future-bank-43a69",
+    "storage_bucket": "future-bank-43a69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506854096337:android:6d776b07f006ac2d",
+        "android_client_info": {
+          "package_name": "com.example.brstefan.futurebank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506854096337-qv5afiv2t4sl4nu3c9ko1adp399j9t6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brstefan.futurebank",
+            "certificate_hash": "1a5d1d8234e14d262cc23bd6e96d69416036aaa6"
+          }
+        },
+        {
+          "client_id": "506854096337-06tfb5vdqv90fikmqb68kbjaod7u7gdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXfeod8k6c6BEFpYb0McELW98osZaXYWg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506854096337-06tfb5vdqv90fikmqb68kbjaod7u7gdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
