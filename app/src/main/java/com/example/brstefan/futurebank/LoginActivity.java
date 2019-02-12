@@ -1,13 +1,12 @@
 package com.example.brstefan.futurebank;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -22,6 +21,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -31,7 +38,10 @@ public class LoginActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+    private int linked=0;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,59 +55,52 @@ public class LoginActivity extends AppCompatActivity implements
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
-
+        db=FirebaseFirestore.getInstance();
+        pd = new ProgressDialog(this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        user = mAuth.getCurrentUser();
+        if(user != null && IsLinkedAccount(user))goToApp();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        pd.setMessage("Cautam starea contului");
+        pd.show();
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                assert account != null;
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                //Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
-                //updateUI(null);
-                // [END_EXCLUDE]
+                Toast.makeText(this,"A aparut o eroare la conectarea cu contul Google!",Toast.LENGTH_LONG).show();
             }
         }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        //Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         // [START_EXCLUDE silent]
         //showProgressDialog();
         // [END_EXCLUDE]
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            user = mAuth.getCurrentUser();
+                            checkStatus();
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
                             //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             //updateUI(null);
+                            Toast.makeText(LoginActivity.this,"A aparut o eroare la conectarea cu contul Google!",Toast.LENGTH_LONG).show();
                         }
 
                         // [START_EXCLUDE]
@@ -118,5 +121,49 @@ public class LoginActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void checkStatus()
+    {
+        pd.dismiss();
+        if(IsLinkedAccount(user))goToApp();
+        else goToLink();
+    }
+
+    private boolean IsLinkedAccount(FirebaseUser user)
+    {
+        db.collection("utilizatori")
+                .whereEqualTo("UID", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                //Toast.makeText(LoginActivity.this,document.get("Statut").toString(),Toast.LENGTH_LONG).show();
+                                if(document.exists())
+                                {
+                                    int status = (int) document.get("Statut");
+                                    if(status == 1)linked=1;
+                                }
+                                else goToLink();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this,"A aparut o eroare la verificarea contului!",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+        return linked == 1;
+    }
+
+    private void goToApp()
+    {
+
+    }
+
+    private void goToLink()
+    {
+        Intent i = new Intent(LoginActivity.this,LinkActivity.class);
+        startActivity(i);
     }
 }
