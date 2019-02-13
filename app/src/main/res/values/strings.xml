@@ -3,4 +3,6 @@
     <string name="nume">Nume</string>
     <string name="prenume">Prenume</string>
     <string name="pin">Pin</string>
+    <string name="titlu_linkare">Introduceti mai jos datele dumneavoastra de la contul bancar, pentru a linka aplicatia la datele dumneavoastra</string>
+    <string name="linkare">Linkeaza</string>
 </resources>

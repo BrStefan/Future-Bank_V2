@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements
     private FirebaseUser user;
     private FirebaseFirestore db;
     private int linked=0;
-    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class LoginActivity extends AppCompatActivity implements
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
-        pd = new ProgressDialog(this);
     }
 
     @Override
@@ -69,8 +67,6 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        pd.setMessage("Cautam starea contului");
-        pd.show();
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -125,7 +121,6 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void checkStatus()
     {
-        pd.dismiss();
         if(IsLinkedAccount(user))goToApp();
         else goToLink();
     }
