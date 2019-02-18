@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.hash.Hashing;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,8 +62,12 @@ public class LinkActivity extends AppCompatActivity {
                             QuerySnapshot query = task.getResult();
                             assert query != null;
                             int count = query.size();
-                            if(count == 0)Toast.makeText(LinkActivity.this,"Cont negasit!",Toast.LENGTH_LONG).show();
-                            else Toast.makeText(LinkActivity.this,"Cont gasit!",Toast.LENGTH_LONG).show();
+                            if(count == 0)Toast.makeText(LinkActivity.this,"Date incorecte!",Toast.LENGTH_LONG).show();
+                            else
+                            {
+                                for(DocumentSnapshot document : task.getResult())
+                                link(document.getId());
+                            }
                         }
                         else Toast.makeText(LinkActivity.this,"A aparut o eroare la verificarea contului!",Toast.LENGTH_LONG).show();
                     }
@@ -73,6 +79,30 @@ public class LinkActivity extends AppCompatActivity {
         mNume = (EditText)findViewById(R.id.Nume);
         mPrenume = (EditText)findViewById(R.id.Prenume);
         mPin = (EditText)findViewById(R.id.Pin);
+    }
+
+    private void link(String doc)
+    {
+        //Toast.makeText(LinkActivity.this,doc.toString(),Toast.LENGTH_LONG).show();
+        db.collection("utilizatori")
+                .document(doc)
+                .update("Statut",1,"UID",user.getUid())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        goToApp();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(LinkActivity.this,"S-a produs o eroare la linkarea contului!",Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void goToApp()
+    {
 
     }
 }

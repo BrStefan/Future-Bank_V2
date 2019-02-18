@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
         user = mAuth.getCurrentUser();
-        if(user != null && IsLinkedAccount(user))goToApp();
+        if(user != null && IsLinkedAccount(user)==1)goToApp();
     }
 
     @Override
@@ -121,34 +121,38 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void checkStatus()
     {
-        if(IsLinkedAccount(user))goToApp();
-        else goToLink();
+        if(IsLinkedAccount(user)==1)goToApp();
+        else if(IsLinkedAccount(user)==0)goToLink();
     }
 
-    private boolean IsLinkedAccount(FirebaseUser user)
+    private int IsLinkedAccount(FirebaseUser user)
     {
         db.collection("utilizatori")
                 .whereEqualTo("UID", user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //Toast.makeText(LoginActivity.this,document.get("Statut").toString(),Toast.LENGTH_LONG).show();
-                                if(document.exists())
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            QuerySnapshot query = task.getResult();
+                            assert query != null;
+                            int count = query.size();
+                            if(count == 1)
+                            {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
                                 {
-                                    int status = (int) document.get("Statut");
-                                    if(status == 1)linked=1;
+                                    long status = (long) document.get("Statut");
+                                    if (status == 1) linked = 1;
                                 }
-                                else goToLink();
                             }
-                        } else {
-                            Toast.makeText(LoginActivity.this,"A aparut o eroare la verificarea contului!",Toast.LENGTH_LONG).show();
+                            else linked=0;
                         }
+                        else Toast.makeText(LoginActivity.this,"A aparut o eroare la verificarea contului!",Toast.LENGTH_LONG).show();
                     }
                 });
-        return linked == 1;
+        return linked;
     }
 
     private void goToApp()
