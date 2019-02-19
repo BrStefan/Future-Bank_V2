@@ -17,12 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Objects;
 
 public class LinkActivity extends AppCompatActivity {
 
@@ -31,14 +28,14 @@ public class LinkActivity extends AppCompatActivity {
     private EditText mPin;
     private FirebaseFirestore db;
     private FirebaseUser user;
-    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link);
 
         init_fields();
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db=FirebaseFirestore.getInstance();
     }
@@ -77,9 +74,9 @@ public class LinkActivity extends AppCompatActivity {
 
     public void init_fields()
     {
-        mNume = (EditText)findViewById(R.id.Nume);
-        mPrenume = (EditText)findViewById(R.id.Prenume);
-        mPin = (EditText)findViewById(R.id.Pin);
+        mNume = findViewById(R.id.Nume);
+        mPrenume = findViewById(R.id.Prenume);
+        mPin = findViewById(R.id.Pin);
     }
 
     private void link(String doc)

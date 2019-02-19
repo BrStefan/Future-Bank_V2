@@ -21,10 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseUser user;
     private FirebaseFirestore db;
-    private int linked=0;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +52,14 @@ public class LoginActivity extends AppCompatActivity implements
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
+        pd = new ProgressDialog(LoginActivity.this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         user = mAuth.getCurrentUser();
-        if(user != null && IsLinkedAccount(user)==1)goToApp();
+        if(user!=null) IsLinkedAccount(user);
     }
 
     @Override
@@ -121,12 +119,13 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void checkStatus()
     {
-        if(IsLinkedAccount(user)==1)goToApp();
-        else if(IsLinkedAccount(user)==0)goToLink();
+        IsLinkedAccount(user);
     }
 
-    private int IsLinkedAccount(FirebaseUser user)
+    private void IsLinkedAccount(FirebaseUser user)
     {
+        pd.setMessage("Verificam starea contului");
+        pd.show();
         db.collection("utilizatori")
                 .whereEqualTo("UID", user.getUid())
                 .get()
@@ -134,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task)
                     {
+                        pd.dismiss();
                         if (task.isSuccessful())
                         {
                             QuerySnapshot query = task.getResult();
@@ -144,15 +144,14 @@ public class LoginActivity extends AppCompatActivity implements
                                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
                                 {
                                     long status = (long) document.get("Statut");
-                                    if (status == 1) linked = 1;
+                                    if (status == 1) goToApp();
                                 }
                             }
-                            else linked=0;
+                            else goToLink();
                         }
                         else Toast.makeText(LoginActivity.this,"A aparut o eroare la verificarea contului!",Toast.LENGTH_LONG).show();
                     }
                 });
-        return linked;
     }
 
     private void goToApp()
