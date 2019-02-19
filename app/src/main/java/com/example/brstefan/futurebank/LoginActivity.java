@@ -157,7 +157,8 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void goToApp()
     {
-
+        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(i);
     }
 
     private void goToLink()

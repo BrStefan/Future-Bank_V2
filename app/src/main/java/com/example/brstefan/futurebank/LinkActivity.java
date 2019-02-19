@@ -1,5 +1,6 @@
 package com.example.brstefan.futurebank;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -103,6 +104,7 @@ public class LinkActivity extends AppCompatActivity {
 
     private void goToApp()
     {
-
+        Intent i = new Intent(LinkActivity.this,MainActivity.class);
+        startActivity(i);
     }
 }
