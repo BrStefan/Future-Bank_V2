@@ -26,6 +26,7 @@ public class ExpenseAdapter extends FirestoreRecyclerAdapter<Expense,ExpenseAdap
     @Override
     protected void onBindViewHolder(@NonNull ExpenseHolder holder, int position, @NonNull Expense model) {
         holder.textViewSuma.setText(String.valueOf(model.getSuma()));
+        holder.textViewMoneda.setText((String.valueOf(model.getMoneda())));
         //holder.textViewData.setText(model.getData());
     }
 
@@ -38,11 +39,13 @@ public class ExpenseAdapter extends FirestoreRecyclerAdapter<Expense,ExpenseAdap
 
     class ExpenseHolder extends RecyclerView.ViewHolder{
         TextView textViewSuma;
+        TextView textViewMoneda;
         //TextView textViewData;
 
         public ExpenseHolder(@NonNull View itemView) {
             super(itemView);
             textViewSuma=itemView.findViewById(R.id.rw_suma);
+            textViewMoneda=itemView.findViewById(R.id.rw_moneda);
             //textViewData=itemView.findViewById(R.id.rw_data);
         }
     }

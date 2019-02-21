@@ -5,29 +5,23 @@ import android.util.Log;
 public class Expense {
 
     private int Suma;
-    private int Proprietar;
-    //private String data;
+    private String Moneda;
 
-    public Expense(int Suma,String data,int Proprietar){
-        this.Suma=Suma;
-        this.Proprietar=Proprietar;
-        //this.data=data;
+    public void Expense(){
+        //empty constructor required
     }
 
-    public Expense(){
-        //empty constructor needed
+    public void Expense(int suma,String Moneda)
+    {
+        this.Suma=suma;
+        this.Moneda=Moneda;
     }
 
     public int getSuma() {
-        Log.e("TAG",Suma + "");
         return Suma;
     }
 
-    public int getProprietar() {
-        return Proprietar;
+    public String getMoneda() {
+        return Moneda;
     }
-
-    /*public String getData() {
-        return data;
-    }*/
 }
