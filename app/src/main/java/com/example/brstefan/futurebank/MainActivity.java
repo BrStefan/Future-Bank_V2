@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_home:
                 fragment = new HomeFragment();
                 break;
-            case R.id.nav_cards:
-                fragment = new CardsFragment();
+            case R.id.nav_exchange:
+                fragment = new ExchangeFragment();
                 break;
             case R.id.nav_expenses:
                 fragment = new ExpensesFragment();

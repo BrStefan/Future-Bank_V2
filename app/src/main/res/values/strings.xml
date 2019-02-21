@@ -22,4 +22,5 @@
     <string name="sold">Sold:</string>
     <string name="Eveniment">Urmatorul eveniment financiar:</string>
     <string name="tranzactii">Tranzactii</string>
+    <string name="curs_valutar">Curs Valutar</string>
 </resources>

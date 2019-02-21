@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/home" />
         <item
-            android:id="@+id/nav_cards"
-            android:icon="@drawable/ic_credit_card_black_24dp"
-            android:title="@string/carduri" />
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/ic_attach_money"
+            android:title="@string/curs_valutar" />
         <item
             android:id="@+id/nav_expenses"
             android:icon="@drawable/ic_account_balance_wallet_black_24dp"
