@@ -23,4 +23,8 @@
     <string name="Eveniment">Urmatorul eveniment financiar:</string>
     <string name="tranzactii">Tranzactii</string>
     <string name="curs_valutar">Curs Valutar</string>
+    <string name="AUD">AUD</string>
+    <string name="Adauga_Eveniment">Adauga un eveniment financiar</string>
+    <string name="Selecteaza_zi">Selecteaza data evenimentului</string>
+    <string name="apasa">Apasa aici</string>
 </resources>

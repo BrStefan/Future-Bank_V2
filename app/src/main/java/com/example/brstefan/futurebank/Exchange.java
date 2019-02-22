@@ -1,26 +1,20 @@
 package com.example.brstefan.futurebank;
 
-import android.util.Log;
+public class Exchange{
+    private String name;
+    private double rate;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
-public class Exchange {
-
-    private String base;
-    private List<String> rates;
-
-    public Exchange(String base, List<String> rates) {
-        this.base = base;
-        this.rates = rates;
+    public Exchange(String name, double rate) {
+        this.name = name;
+        this.rate = rate;
     }
 
-    public String getBase() {
-        return base;
+    public String getName() {
+        return name;
     }
 
-    public List<String> getRates() {
-        return rates;
+    public double getRate() {
+        return rate;
     }
 }
+

@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 fragment = new SettingsFragment();
                 break;
+            case R.id.nav_event:
+                fragment = new EventFragment();
+                break;
             case R.id.nav_logout:
                 break;
         }

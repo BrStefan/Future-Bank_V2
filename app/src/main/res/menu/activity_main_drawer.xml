@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_account_balance_wallet_black_24dp"
             android:title="@string/tranzactii" />
         <item
+            android:id="@+id/nav_event"
+            android:icon="@drawable/ic_date_range"
+            android:title="@string/Adauga_Eveniment" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/setari" />
@@ -25,6 +29,7 @@
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="@string/iesi"
             />
+
     </group>
 
 
