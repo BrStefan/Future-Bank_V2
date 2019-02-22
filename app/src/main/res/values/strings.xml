@@ -27,4 +27,11 @@
     <string name="Adauga_Eveniment">Adauga un eveniment financiar</string>
     <string name="Selecteaza_zi">Selecteaza data evenimentului</string>
     <string name="apasa">Apasa aici</string>
+    <string name="Selecteaza_timp">Selecteaza momentul evenimentului</string>
+    <string name="introdu_numele_ev">Numele evenimentului</string>
+    <string name="saptamanal">Saptamanal</string>
+    <string name="lunar">Lunar</string>
+    <string name="odata">O singura data</string>
+    <string name="selecteaza">Selectati frecventa evenimentului</string>
+    <string name="submit">Salveaza evenimentul</string>
 </resources>
