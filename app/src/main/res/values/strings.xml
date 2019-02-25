@@ -34,4 +34,18 @@
     <string name="odata">O singura data</string>
     <string name="selecteaza">Selectati frecventa evenimentului</string>
     <string name="submit">Salveaza evenimentul</string>
+    <string name="selecteaza_tara">Selecteaza tara</string>
+    <string name="ex_tara">Ex: Romania</string>
+    <string name="selecteaza_varsta">Introdu varsta</string>
+    <string name="ex_varsta">Ex: 21</string>
+    <string name="adauga_preferinta">Adauga o preferinta</string>
+    <string name="ex_preferinta">Ex: Sportul</string>
+    <string name="salveaza_setarile">Salveaza setarile</string>
+    <string-array name="options">
+        <item>Sport</item>
+        <item>Film</item>
+        <item>Muzica</item>
+        <item>Calatorie</item>
+        <item>Jocuri</item>
+    </string-array>
 </resources>

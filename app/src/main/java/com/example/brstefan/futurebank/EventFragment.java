@@ -24,7 +24,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
@@ -59,6 +62,7 @@ public class EventFragment extends Fragment {
     private int Minute;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private ProgressDialog pd;
 
     static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -81,6 +85,7 @@ public class EventFragment extends Fragment {
         mEditText = (EditText)view.findViewById(R.id.nume_eveniment);
         mAuth = FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
+        pd=new ProgressDialog(getActivity());
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +110,7 @@ public class EventFragment extends Fragment {
                 mTextDate.setText(display);
                 date_check=true;
                 Day=dayOfMonth;
-                Month=month;
+                Month=month+1;
                 Year=year;
             }
         };
@@ -129,7 +134,7 @@ public class EventFragment extends Fragment {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String display;
                 if(minute <10)display = hourOfDay + ":0" + minute;
-                else display = hourOfDay + ":0" + minute;
+                else display = hourOfDay + ":" + minute;
                 mTextTime.setText(display);
                 time_check=true;
                 Hour=hourOfDay;
@@ -151,7 +156,20 @@ public class EventFragment extends Fragment {
                     //Log.e("TAG",data);
                     Map<String,Object> docData = new HashMap<>();
                     docData.put("Data",getDateFromString(data));
-                    db.collection("evenimente").document("1").set(docData);
+                    docData.put("Nume",mEditText.getText().toString());
+                    int selected = mRadioGroup.getCheckedRadioButtonId();
+                    pd.setMessage("Introducem evenimentul financiar...");
+                    mRadioButton = (RadioButton)view.findViewById(selected);
+                    docData.put("Repetitie",mRadioButton.getText());
+                    pd.show();
+                    pd.setCanceledOnTouchOutside(false);
+                    db.collection("evenimente").add(docData).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(getContext(),"Eveniment introdus cu succes",Toast.LENGTH_LONG).show();
+                            pd.dismiss();
+                        }
+                    });
                 }
                 else Toast.makeText(getContext(), "Completati toate campurile!", Toast.LENGTH_LONG).show();
             }
