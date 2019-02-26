@@ -157,6 +157,7 @@ public class EventFragment extends Fragment {
                     Map<String,Object> docData = new HashMap<>();
                     docData.put("Data",getDateFromString(data));
                     docData.put("Nume",mEditText.getText().toString());
+                    docData.put("Cod",1);
                     int selected = mRadioGroup.getCheckedRadioButtonId();
                     pd.setMessage("Introducem evenimentul financiar...");
                     mRadioButton = (RadioButton)view.findViewById(selected);

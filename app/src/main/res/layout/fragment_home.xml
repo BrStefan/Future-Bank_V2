@@ -7,20 +7,36 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/my_round_fl"
+            app:layout_constraintBottom_toBottomOf="@+id/eveniment_dreapta_2_hf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Nume_hf">
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/Nume_hf"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="108dp"
+            android:layout_marginEnd="8dp"
+            android:paddingTop="8dp"
             android:text="@string/nume_utilizator"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,139 +44,84 @@
             android:id="@+id/nume_dreapta_hf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/textview"
-            app:layout_constraintStart_toEndOf="@+id/Nume_hf"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Nume_hf" />
 
         <TextView
             android:id="@+id/sold_hf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/sold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Nume_hf" />
+            app:layout_constraintTop_toBottomOf="@+id/nume_dreapta_hf" />
 
         <TextView
             android:id="@+id/sold_dreapta_hf"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/textview"
-            app:layout_constraintStart_toEndOf="@+id/sold_hf"
-            app:layout_constraintTop_toBottomOf="@+id/Nume_hf" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sold_hf" />
 
         <TextView
             android:id="@+id/eveniment_hf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/Eveniment"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sold_hf" />
-
-        <TextView
-            android:id="@+id/eveniment_dreapta_hf"
-            android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/textview"
-            app:layout_constraintStart_toEndOf="@+id/eveniment_hf"
-            app:layout_constraintTop_toBottomOf="@+id/sold_hf" />
-
-    </android.support.constraint.ConstraintLayout>-->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/Nume_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="@string/nume_utilizator" />
-
-        <TextView
-            android:id="@+id/nume_dreapta_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
-            android:layout_toEndOf="@+id/Nume_hf"
-            android:text="@string/textview"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/sold_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Nume_hf"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/sold" />
-
-        <TextView
-            android:id="@+id/sold_dreapta_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nume_dreapta_hf"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_toEndOf="@+id/sold_hf"
-            android:text="@string/textview" />
-
-        <TextView
-            android:id="@+id/eveniment_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sold_hf"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="@string/Eveniment" />
+            app:layout_constraintTop_toBottomOf="@+id/sold_dreapta_hf" />
 
         <TextView
             android:id="@+id/eveniment_dreapta_hf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sold_dreapta_hf"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/eveniment_hf"
+            android:layout_marginEnd="8dp"
             android:text="@string/textview"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eveniment_hf" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/eveniment_dreapta_2_hf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/textview"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eveniment_dreapta_hf" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
 </ScrollView>
