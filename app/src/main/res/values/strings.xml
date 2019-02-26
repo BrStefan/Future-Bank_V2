@@ -41,6 +41,7 @@
     <string name="adauga_preferinta">Adauga o preferinta</string>
     <string name="ex_preferinta">Ex: Sportul</string>
     <string name="salveaza_setarile">Salveaza setarile</string>
+    <string name="nu_exista">Nu exista evenimente financiare apropiate</string>
     <string-array name="options">
         <item>Sport</item>
         <item>Film</item>

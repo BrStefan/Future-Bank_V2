@@ -17,11 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment {
     private TextView getmTextView_activitate2;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private boolean e;
 
     @Nullable
     @Override
@@ -118,9 +122,10 @@ public class HomeFragment extends Fragment {
 
     private void eveniment(long cod)
     {
+
         db.collection("evenimente")
                 .whereEqualTo("Cod",cod)
-                .orderBy("Data",Query.Direction.DESCENDING)
+                .orderBy("Data",Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -132,9 +137,19 @@ public class HomeFragment extends Fragment {
                                 String nume = Objects.requireNonNull(document.get("Nume")).toString();
                                 Timestamp time = document.getTimestamp("Data");
                                 assert time != null;
-                                mTextView_activitate.setText(nume);
-                                getmTextView_activitate2.setText(getDate(time.getSeconds()));
-                                break;
+                                Log.e("TAG",time.getSeconds()+" | " + System.currentTimeMillis());
+                                if(time.getSeconds()>=System.currentTimeMillis()/1000)
+                                {
+                                    mTextView_activitate.setText(nume);
+                                    getmTextView_activitate2.setText(getDate(time.getSeconds()));
+                                    e=true;
+                                    break;
+                                }
+                            }
+                            if(!e)
+                            {
+                                mTextView_activitate.setText(R.string.nu_exista);
+                                getmTextView_activitate2.setText("");
                             }
                         }
                         else Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
